@@ -1,0 +1,25 @@
+<p><a href="/professional_profile/">My Profile</a></p>
+<p><a href="/logout/">Logout</a></p>
+<h3>Users you may want to connect with:</h3>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+		<% @users.each do |user| %>
+			<%if !@user.friends.include?(user)%>
+			<%if !@friends_with.include?(Friendship.find_by user:(user.id))%>
+			<%if !@invited_by.include?(Invitation.find_by user:(user.id))%>
+			<%if !@user.invitees.include?(User.find(user.id))%>
+				<tr>
+				<td><a href='/users/<%= user.id%>'><%=user.name%></a></td>
+				<td><a href='/connect/<%=user.id%>'>Connect</a></td>
+				</tr>
+			<%end%>
+			<%end%>
+			<% end %>
+			<% end %>
+	<%end%>
+</table>

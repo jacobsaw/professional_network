@@ -1,0 +1,35 @@
+<h1>Hi <%= @user.name %></h1>
+<p><a href="/users/">All Users</a></p>
+<p><a href="/logout/">Logout</a></p>
+<p>Here is your profile description:</p>
+<p><%= @user.description %></p>
+<h3>Your professional network:</h3>
+<%if @friends%>
+	<% @friends.each do |friend|%>
+		<p><a href='/users/<%= friend.id%>'><%= friend.name %></a></p>
+	<%end%>
+<%end%>
+<%if @friends_with%>
+	<% @friends_with.each do |friend|%>
+		<p><a href='/users/<%= friend.user.id%>'><%= friend.user.name %></a></p>
+	<%end%>
+<%end%>
+<h3>Invitations:</h3>
+<p>The following people asked you to be in their network:</p>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<%if @invitations%>
+	<% @invitations.each do |invite|%>
+		<tr>
+			<td><a href='/users/<%= invite.user.id%>'><%= invite.user.name %></a></td>
+			<td><a href='/accept/<%= invite.user.id %>'>Accept Invite</a></td>
+			<td><a href='/ignore/<%= invite.id %>'>Ignore</a></td>
+		</tr>
+	<%end%>
+<%end%>
+</table>
